@@ -47,7 +47,6 @@ function USMap({data,property}){
       
           // render text
           svg
-          .select("g")
           .selectAll("path")
           .data(data.features)
           .enter()
