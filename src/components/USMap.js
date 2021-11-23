@@ -48,8 +48,6 @@ function USMap({data,property}){
           //   .attr("d", feature => pathGenerator(feature));
       
           // render text
-
-
           svg
           .selectAll("path")
           .data(data.features)

@@ -7,6 +7,7 @@ import dataus from './us-county-boundaries.json'
 import datageo from './components/usmap.json'
 import Mapo from "./components/maps.js"
 import ReactLoading from 'react-loading';
+import csv from './convertcsv.json';
 function App() {
   const [statesData,setStateData]=useState([]); 
   const [property,setProperty]=useState("pop_est");
@@ -22,7 +23,7 @@ function App() {
   return (
   	<div>
     <USMap data={data} property={property}/>
-    <Mapo data={datageo} />
+    <Mapo data={datageo} csv={csv} />
     </div>
     
   )
