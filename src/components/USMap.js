@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import { select, geoPath, geoMercator, min, max, scaleLinear } from "d3";
 import useResizeObserver from "./useResizeObserver";
-
+import * as d3 from 'd3'
 function USMap({data,property}){
-   
+        console.log(data);
         const svgRef = useRef();
         const wrapperRef = useRef();
         // const dimensions = useResizeObserver(wrapperRef);
@@ -32,20 +32,24 @@ function USMap({data,property}){
           // takes geojson data,
           // transforms that into the d attribute of a path element
           const pathGenerator = geoPath().projection(projection);
-        console.log(data.features);
+
+        
+        // console.log(data.features);
           // render each country
-        //   svg
-        //     .selectAll(".country")
-        //     .data(data.features)
-        //     .join("path")
-        //     // .on("click", feature => {
-        //     //   setSelectedCountry(selectedCountry === feature ? null : feature);
-        //     // })
-        //     .attr("class", "country")
-        //     .transition()
-        //     .attr("d", feature => pathGenerator(feature));
+          // svg
+          //   .selectAll(".country")
+          //   .data(data.features)
+          //   .join("path")
+          //   // .on("click", feature => {
+          //   //   setSelectedCountry(selectedCountry === feature ? null : feature);
+          //   // })
+          //   .attr("class", "country")
+          //   .transition()
+          //   .attr("d", feature => pathGenerator(feature));
       
           // render text
+
+
           svg
           .selectAll("path")
           .data(data.features)
