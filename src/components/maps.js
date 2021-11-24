@@ -11,26 +11,26 @@ function Mapo (props){
     
     useEffect(()=>{
       
-        // setMaximum(d3.max(props.csv,function(d){
-        //   console.log(d.Obesity_prevalence);
-        //   return d.Obesity_prevalence;
-        //  }));
-        //  console.log(maximum);
+        setMaximum(d3.max(props.csv,function(d){
+          console.log(d.Obesity_prevalence);
+          return d.Obesity_prevalence;
+         }));
+         console.log(maximum);
         let colorScale=d3.scaleLinear().domain([0, d3.max(props.csv,function(d){
           console.log(d.Obesity_prevalence);
           return d.Obesity_prevalence;
          })]).range([255,0]);
          const svg = select(svgRef.current);
          console.log(colorScale(34.4));
-        //  svg.selectAll('path').data(props.csv).enter().attr("fill",function(d){
-        //    console.log(d.Obesity_prevalence);
-        //    var f=colorScale(d.Obesity_prevalence);
-        //    if(f<=25.5){
-        //     return "rgb(" + 255 + ",0,0)";
-        //    }
-        //    else{
-        //    return "rgb(" + f + "," + f + "," + f + ")"};
-        //  })
+         // svg.selectAll('path').data(props.csv).enter().attr("fill",function(d){
+         //   console.log(d.Obesity_prevalence);
+         //   var f=colorScale(d.Obesity_prevalence);
+         //   if(f<=25.5){
+         //    return "rgb(" + 255 + ",0,0)";
+         //   }
+         //   else{
+         //   return "rgb(" + f + "," + f + "," + f + ")"};
+         // })
      
      
     },[])
@@ -38,7 +38,7 @@ function Mapo (props){
         <svg ref={svgRef} viewBox="0 0 960 600">
           {statesData.map((stateData, index) =>
             <path
-              style={{cursor: "pointer", fill: "orange"}}
+              style={{cursor: "pointer", fill: "blue"}}
               key={index}
               ref={pathRef}
               stroke="#fff"
@@ -48,7 +48,7 @@ function Mapo (props){
                 event.target.style.fill = 'red';
               }}
               onMouseOut={(event) => {
-                event.target.style.fill = 'orange';
+                event.target.style.fill = 'blue';
               }}
             >
             </path>
