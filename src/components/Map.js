@@ -24,11 +24,7 @@ function Map (props)  {
           renderChart(props.data.features, path);
         }
      }, [props.data.features]);
-    ////////////////////////////////////////////////////// 
-    // RENDER THE CHART USING D3
-    //////////////////////////////////////////////////////   
-     ////////////////////////////////////////////////////// 
-     // RENDER THE SVG
+
      const renderChart = (data, path) => {
          
         d3.select(svgRef.current).selectAll('path').data(data).enter()

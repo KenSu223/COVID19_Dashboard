@@ -23,7 +23,7 @@ function App() {
   if (statesData) {
     return (
       <div>
-        <USMap data={data} property={property} />
+        // <USMap data={data} property={property} />
         <Mapo data={datageo} csv={csv} />
       </div>
     );
