@@ -1,16 +1,17 @@
-import React,{useEffect, useState} from 'react';
-import BarChartData from './components/BarChartData'
-import data from "./customgeo.json"
-import USMap from"./components/USMap.js"
-import Map from "./components/Map.js"
-import dataus from './us-county-boundaries.json'
-import datageo from './components/usmap.json'
-import Mapo from "./components/maps.js"
-import ReactLoading from 'react-loading';
-import csv from './convertcsv.json';
+import React, { useEffect, useState } from "react";
+import BarChartData from "./components/BarChartData";
+import data from "./customgeo.json";
+import USMap from "./components/USMap.js";
+import Map from "./components/Map.js";
+import dataus from "./us-county-boundaries.json";
+import datageo from "./components/usmap.json";
+import Mapo from "./components/maps.js";
+import ReactLoading from "react-loading";
+import csv from "./convertcsv.json";
+import Dropdownbutton from "./components/Dropdownbutton";
 function App() {
-  const [statesData,setStateData]=useState([]); 
-  const [property,setProperty]=useState("pop_est");
+  const [statesData, setStateData] = useState([]);
+  const [property, setProperty] = useState("pop_est");
   useEffect(() => {
     (async () => {
       const res = await fetch(datageo);
@@ -19,21 +20,16 @@ function App() {
       setStateData(statesData);
     })();
   }, []);
-  if(statesData){
-  return (
-  	<div>
-    <USMap data={data} property={property}/>
-    <Mapo data={datageo} csv={csv} />
-    </div>
-    
-  )
-}
-
-else{
-return (
-  <ReactLoading/>
-)
-}
+  if (statesData) {
+    return (
+      <div>
+        <USMap data={data} property={property} />
+        <Mapo data={datageo} csv={csv} />
+      </div>
+    );
+  } else {
+    return <ReactLoading />;
+  }
 }
 
 export default App;
