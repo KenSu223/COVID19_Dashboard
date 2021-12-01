@@ -33,32 +33,47 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <link href="styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- <link href="../public/styles.css" /> -->
     <title>React and D3.js</title>
   </head>
   <body>
-    <nav class="nav">
-      <a href="#" class="nav__link">
-        <i class="material-icons nav__icon">dashboard</i>
-        <span class="nav__text">Dashboard</span>
-      </a>
-      <a href="#" class="nav__link nav__link--active">
-        <i class="material-icons nav__icon">person</i>
-        <span class="nav__text">Profile</span>
-      </a>
-      <a href="#" class="nav__link">
-        <i class="material-icons nav__icon">devices</i>
-        <span class="nav__text">Devices</span>
-      </a>
-      <a href="#" class="nav__link">
-        <i class="material-icons nav__icon">lock</i>
-        <span class="nav__text">Privacy</span>
-      </a>
-      <a href="#" class="nav__link">
-        <i class="material-icons nav__icon">settings</i>
-        <span class="nav__text">Settings</span>
-      </a>
-    </nav>
+    <div class="navbar">
+      <nav class="nav">
+        <div class="title">
+          <h1>COVID-19 Related Chronic Disease Dashboard</h1>
+        </div>
+        <a href="#" class="nav__link nav__link--active">
+          <i class="material-icons nav__icon">dashboard</i>
+          <span class="nav__text">Dashboard</span>
+        </a>
+        <a
+          href="https://stacks.cdc.gov/view/cdc/90519/cdc_90519_DS1.xlsx?"
+          class="nav__link"
+        >
+          <i class="fa fa-database nav__icon"></i>
+          <span class="nav__text">Dataset</span>
+        </a>
+        <a
+          href="https://www.cdc.gov/mmwr/volumes/69/wr/mm6913e2.htm"
+          class="nav__link"
+        >
+          <i class="fa fa-globe nav__icon"></i>
+          <span class="nav__text">References</span>
+        </a>
+        <a href="https://github.com/kwu78/kenry" class="nav__link">
+          <i class="fa fa-github nav__icon"></i>
+          <span class="nav__text">Github</span>
+        </a>
+        <a href="#" class="nav__link">
+          <i class="fa fa-address-book nav__icon"></i>
+          <span class="nav__text">About</span>
+        </a>
+      </nav>
+    </div>
     <div id="root"></div>
     <!--
       This HTML file is a template.
