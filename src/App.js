@@ -11,6 +11,7 @@ import datageo from "./components/usmap.json";
 import Mapo from "./components/maps.js";
 import ReactLoading from "react-loading";
 import csv from "./convertcsv.json";
+
 import Dropdownbutton from "./components/MapDropdown";
 import Select from "react-select";
 function App() {
@@ -106,6 +107,7 @@ function App() {
               </div>
               {/* <USMap data={data} property={property} /> */}
               <Mapo data={datageo} csv={csv} ChosenDisease={ChosenDisease} />
+            
             </Grid.Column>
             <Grid.Column></Grid.Column>
           </Grid.Row>
