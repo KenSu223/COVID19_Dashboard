@@ -1,89 +1,67 @@
-import React, { useEffect, useRef } from 'react'
-import { select } from 'd3-selection'
-import { max } from 'd3-array'
-import { scaleLinear, scaleBand } from 'd3-scale'
-import { axisLeft, axisBottom } from 'd3-axis'
+import React, { useRef, useEffect, useState } from "react";
+import * as d3 from 'd3'
 
-// margin convention often used with D3
-const margin = { top: 80, right: 60, bottom: 80, left: 60 }
-const width = 600 - margin.left - margin.right
-const height = 600 - margin.top - margin.bottom
+function BarChart(props){
 
-const color = ['#f05440', '#d5433d', '#b33535', '#283250']
-
-const BarChart = ({ data }) => {
-  const d3svg = useRef(null)
+  console.log(props.csv);  
+  const svgRef = useRef();
+  const ref = useRef();
+  var height = 100;
+  var width = 400;
 
   useEffect(() => {
-    if (data && d3svg.current) {
-      let svg = select(d3svg.current)
+    //const height = svgRef.current.clientHeight;
+    //const width = svgRef.current.clientWidth;
+    const svg = d3.select(ref.current)
+        .attr("width", width)
+        .attr("height", height)
+        .style("border", "1px solid black")
+  }, []);
 
-      // scales
-      const xMax = max(data, d => d.revenue)
+  useEffect(() => {
+      draw();
+  }, [props.csv.Obesity_prevalence]);
 
-      const xScale = scaleLinear()
-        .domain([0, xMax])
-        .range([0, width])
+  const draw = () => {
+      
+      const svg = d3.select(ref.current);
+      var selection = svg.selectAll("rect").data(props.csv.Obesity_prevalence);
+      var yScale = d3.scaleLinear()
+            .domain([0, d3.max(props.csv.Obesity_prevalence)])
+            .range([0, height-100]);
+      
+      selection
+          .transition().duration(300)
+              .attr("height", (d) => yScale(d))
+              .attr("y", (d) => height - yScale(d))
 
-      const yScale = scaleBand()
-        .domain(data.map(d => d.genre))
-        .rangeRound([0, height])
-        .paddingInner(0.25)
+      selection
+          .enter()
+          .append("rect")
+          .attr("x", (d, i) => i * 45)
+          .attr("y", (d) => height)
+          .attr("width", 40)
+          .attr("height", 0)
+          .attr("fill", "orange")
+          .transition().duration(300)
+              .attr("height", (d) => yScale(d))
+              .attr("y", (d) => height - yScale(d))
+      
+      selection
+          .exit()
+          .transition().duration(300)
+              .attr("y", (d) => height)
+              .attr("height", 0)
+          .remove()
+  }
 
-      // append group translated to chart area
-      svg = svg.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`)
-
-      // draw header
-      svg
-        .append('g')
-        .attr('class', 'bar-header')
-        .attr('transform', `translate(0, ${-margin.top / 2})`)
-        .append('text')
-        .append('tspan')
-        .text('Horizontal bar chart')
-
-      // draw bars
-      svg
-        .selectAll('.bar')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'bar')
-        .attr('y', d => yScale(d.genre))
-        .attr('width', d => xScale(d.revenue))
-        .attr('height', yScale.bandwidth())
-        .style('fill', function(d, i) {
-          return color[i % 4] // use colors in sequence
-        })
-
-      // draw axes
-      const xAxis = axisBottom(xScale)
-      svg
-        .append('g')
-        .attr('class', 'x axis')
-        .attr('transform', `translate(0,${height + margin.bottom / 3})`)
-        .call(xAxis)
-
-      const yAxis = axisLeft(yScale).tickSize(0)
-      svg
-        .append('g')
-        .attr('class', 'y axis')
-        .attr('transform', `translate(${-margin.left / 3},0)`)
-        .call(yAxis)
-    }
-  }, [data])
 
   return (
-    <svg
-      className="bar-chart-container"
-      width={width + margin.left + margin.right}
-      height={height + margin.top + margin.bottom}
-      role="img"
-      ref={d3svg}
-    ></svg>
+      <div className="chart">
+          <svg ref={ref}>
+          </svg>
+      </div>
   )
 }
 
-export default BarChart
-
-// style={{ pointerEvents: 'all', width: '100%', height: '100%' }}
+export default BarChart;

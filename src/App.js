@@ -9,10 +9,12 @@ import { Dropdown } from "semantic-ui-react";
 // import dataus from "./us-county-boundaries.json";
 import datageo from "./components/usmap.json";
 import Mapo from "./components/maps.js";
+import BarCharto from "./components/BarChart.js";
 import ReactLoading from "react-loading";
 import csv from "./convertcsv.json";
 import Dropdownbutton from "./components/MapDropdown";
 import Select from "react-select";
+import BarChart from "./components/BarChart";
 function App() {
   const diseaselist = ["Obesity", "Heart disease", "COPD", "diabetes", "CKD"];
   // const diseaseList = [
@@ -106,6 +108,7 @@ function App() {
               </div>
               {/* <USMap data={data} property={property} /> */}
               <Mapo data={datageo} csv={csv} ChosenDisease={ChosenDisease} />
+              <BarCharto csv={csv} />
             </Grid.Column>
             <Grid.Column></Grid.Column>
           </Grid.Row>
