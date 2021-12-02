@@ -11,7 +11,6 @@ import datageo from "./components/usmap.json";
 import Mapo from "./components/maps.js";
 import ReactLoading from "react-loading";
 import csv from "./convertcsv.json";
-import Bar from "./components/bar_thing.js";
 import Dropdownbutton from "./components/MapDropdown";
 import Select from "react-select";
 function App() {

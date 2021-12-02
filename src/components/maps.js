@@ -432,16 +432,16 @@ function Mapo(props) {
               </div>
 
             </Grid.Column>
-            <Grid.Column width={5}>
-            <Table celled fixed style={{ width: "100%" }}>
+            <Grid.Column width={4}>
+            <Table celled fixed style={{ width: "90%" }}>
             <Table.Header>
 
             <tr textalign="center" colSpan="3"
             style={{ backgroundColor: '#94B3FD'}}
             >
-            <td colSpan='1' style={{ width: 135,fontSize: '14px', textAlign: "center", fontWeight: 700, color: "black"  }}>Total Number </td>
-            <td colSpan='1' style={{ width: 110, fontSize: '14px', textAlign: "center", fontWeight: 700, color: "black" }}> {clicked?clickedState: ""}</td>
-            <td colSpan='1' style={{ width: 110, fontSize: '14px', textAlign: "center",  fontWeight: 700, color: "black" }}> U.S.</td>
+            <td colSpan='1' style={{ fontSize: '14px', textAlign: "center", fontWeight: 700, color: "black"  }}>Disease Total Counts </td>
+            <td colSpan='1' style={{  fontSize: '14px', textAlign: "center", fontWeight: 700, color: "black" }}> {clicked?clickedState: ""}</td>
+            <td colSpan='1' style={{  fontSize: '14px', textAlign: "center",  fontWeight: 700, color: "black" }}> U.S.</td>
             </tr>
 
 
@@ -492,9 +492,10 @@ function Mapo(props) {
 
             </Table.Header>
             </Table>
-
+          <div style={{width:"90%"}} >
             <CountyDropdown />
-            <CountyPercentageCircle data={props.csv} />
+            <CountyPercentageCircle   data={props.csv} />
+            </div>
 </Grid.Column>
           </Grid.Row>
           <Grid.Row>
