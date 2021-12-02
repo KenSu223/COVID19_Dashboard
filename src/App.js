@@ -58,13 +58,6 @@ function App() {
       // color: "blue",
     };
     return (
-      // <Dropdown
-      //   placeholder="Select Disease"
-      //   fluid
-      //   selection
-      //   options={diseaseList}
-      //   onChange={handleChoiceChange}
-      // />
       <div>
         <Select
           options={options}
@@ -128,18 +121,18 @@ function App() {
   if (statesData) {
     return (
       <div>
-        <Grid columns={2} divided>
+        <Grid divided>
           <Grid.Row>
-            <Grid.Column width={10}>
+            <Grid.Column>
               <div class="DropdownToggle">
                 <DropdownButton />
               </div>
               {/* <USMap data={data} property={property} /> */}
               <Mapo data={datageo} csv={csv} ChosenDisease={ChosenDisease} />
             </Grid.Column>
-            <Grid.Column style={{ marginTop: "4%" }} width={6}>
+            {/* <Grid.Column style={{ marginTop: "4%" }} width={6}>
               <DropdownButton />
-            </Grid.Column>
+            </Grid.Column> */}
           </Grid.Row>
         </Grid>
       </div>

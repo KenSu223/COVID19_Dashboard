@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { select, geoPath, geoMercator, min, max, scaleLinear } from "d3";
-import { Grid, Image } from "semantic-ui-react";
+import { Grid, GridColumn, Image } from "semantic-ui-react";
 import * as d3 from "d3";
-
+import Select from "react-select";
 import _ from "lodash";
 import { scaleQuantile } from "d3-scale";
 import ReactTooltip from "react-tooltip";
@@ -39,7 +39,7 @@ function Mapo(props) {
   const [colorfunction, setColorfunction] = useState();
   const [statefips, setStatefips] = useState("_nation");
   const [statename, setStateName] = useState("the United States");
-  const [clickedState,setStateClickedState]=useState("the United States");
+  const [clickedState, setStateClickedState] = useState("the United States");
   useEffect(() => {
     setMaximum(
       d3.max(props.csv, function (d) {
@@ -146,6 +146,41 @@ function Mapo(props) {
     return item.STATE_NAME === clickedState;
   });
 
+  const filteredCountyOptions = filteredCountyList.map((item) => {});
+
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  useEffect(() => {
+    console.log("disease changed!!!");
+    console.log(selectedOption);
+    console.log("------");
+    if (selectedOption) {
+      let disease_prevalence = selectedOption.value.concat("_prevalence");
+      setChosenDisease(disease_prevalence);
+    }
+  }, [selectedOption]);
+
+  const CountyDropdown = () => {
+    return (
+      <div>
+        <Select
+          options={options}
+          value={selectedOption}
+          placeholder={"Select a disease"}
+          clearable={false}
+          style={styles.select}
+          // style={styles.select}
+          onChange={setSelectedOption}
+          //
+        >
+          {/* {diseaselist.map((choice) => (
+            <option key={choice}>{choice}</option>
+          ))} */}
+        </Select>
+      </div>
+    );
+  };
+
   const CustomizedLabellist_state = (props) => {
     const { value } = props;
     console.log(props);
@@ -174,7 +209,7 @@ function Mapo(props) {
     console.log(colourScale);
     return (
       <div>
-        <Grid columns={2} divided>
+        <Grid columns={3} divided>
           <Grid.Row>
             <Grid.Column width={2}>
               <div class="CountyList">
@@ -184,7 +219,7 @@ function Mapo(props) {
             </Grid.Column>
             {/* <svg class='legend'></svg> */}
 
-            <Grid.Column width={14}>
+            <Grid.Column width={8}>
               <h1>
                 Prevalence of {props.ChosenDisease} in {clickedState}
               </h1>
@@ -240,13 +275,12 @@ function Mapo(props) {
                             <Geography
                               key={geo.rsmKey}
                               geography={geo}
-                              onClick={()=>{
+                              onClick={() => {
                                 const fip = geo.id.substring(0, 2);
                                 const cur = props.csv.find(
                                   (s) => s["STATE_FIPS"] + "" === fip
                                 );
                                 setStateClickedState(cur["STATE_NAME"]);
-
                               }}
                               onMouseEnter={() => {
                                 const fip = geo.id.substring(0, 2);
@@ -283,47 +317,10 @@ function Mapo(props) {
                   <br />
                   <b>Click for data about the counties .</b>
                 </ReactTooltip>
-                {/* <svg ref={svgRef} viewBox="0 0 960 600">
-              {statesData.map((stateData, index) => {
-                console.log(colourScale[stateData.name]);
-                return (
-                  <path
-                    style={{
-                      cursor: "pointer",
-                      fill: colourScale[stateData.name]
-                        ? "rgb(" +
-                          colourScale[stateData.name] +
-                          "," +
-                          0 +
-                          "," +
-                          0 +
-                          ")"
-                        : "white",
-                    }}
-                    key={index}
-                    ref={pathRef}
-                    stroke="black"
-                    strokeWidth="5px"
-                    d={stateData.shape}
-                    onMouseOver={(event) => {
-                      event.target.style.fill = "blue";
-                    }}
-                    onMouseOut={(event) => {
-                      event.target.style.fill = colourScale[stateData.name]
-                        ? "rgb(" +
-                          colourScale[stateData.name] +
-                          "," +
-                          0 +
-                          "," +
-                          0 +
-                          ")"
-                        : "white";
-                    }}
-                  ></path>
-                );
-              })}
-                        </svg> */}
               </div>
+            </Grid.Column>
+            <Grid.Column width={2}>
+              <div>stufffff</div>
             </Grid.Column>
           </Grid.Row>
         </Grid>
