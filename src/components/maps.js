@@ -146,40 +146,40 @@ function Mapo(props) {
     return item.STATE_NAME === clickedState;
   });
 
-  const filteredCountyOptions = filteredCountyList.map((item) => {});
+  // const filteredCountyOptions = filteredCountyList.map((item) => {});
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  // const [selectedOption, setSelectedOption] = useState(null);
 
-  useEffect(() => {
-    console.log("disease changed!!!");
-    console.log(selectedOption);
-    console.log("------");
-    if (selectedOption) {
-      let disease_prevalence = selectedOption.value.concat("_prevalence");
-      setChosenDisease(disease_prevalence);
-    }
-  }, [selectedOption]);
+  // useEffect(() => {
+  //   console.log("disease changed!!!");
+  //   console.log(selectedOption);
+  //   console.log("------");
+  //   if (selectedOption) {
+  //     let disease_prevalence = selectedOption.value.concat("_prevalence");
+  //     setChosenDisease(disease_prevalence);
+  //   }
+  // }, [selectedOption]);
 
-  const CountyDropdown = () => {
-    return (
-      <div>
-        <Select
-          options={options}
-          value={selectedOption}
-          placeholder={"Select a disease"}
-          clearable={false}
-          style={styles.select}
-          // style={styles.select}
-          onChange={setSelectedOption}
-          //
-        >
-          {/* {diseaselist.map((choice) => (
-            <option key={choice}>{choice}</option>
-          ))} */}
-        </Select>
-      </div>
-    );
-  };
+  // const CountyDropdown = () => {
+  //   return (
+  //     <div>
+  //       <Select
+  //         options={options}
+  //         value={selectedOption}
+  //         placeholder={"Select a disease"}
+  //         clearable={false}
+  //         style={styles.select}
+  //         // style={styles.select}
+  //         onChange={setSelectedOption}
+  //         //
+  //       >
+  //         {/* {diseaselist.map((choice) => (
+  //           <option key={choice}>{choice}</option>
+  //         ))} */}
+  //       </Select>
+  //     </div>
+  //   );
+  // };
 
   const CustomizedLabellist_state = (props) => {
     const { value } = props;
