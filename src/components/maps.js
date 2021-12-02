@@ -6,6 +6,12 @@ import Select from "react-select";
 import _ from "lodash";
 import { scaleQuantile } from "d3-scale";
 import ReactTooltip from "react-tooltip";
+import {
+  CircularProgressbar,
+  buildStyles,
+  CircularProgressbarWithChildren,
+} from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 // import sq from '@vx/scale/scaleQuantile';
 import "./maps.css";
 import {
@@ -146,8 +152,12 @@ function Mapo(props) {
     return item.STATE_NAME === clickedState;
   });
 
-  const filteredCountyOptions = filteredCountyList.map((item) => {});
+  const filteredCountyOptions = filteredCountyList.map((item) => {
+    return { value: item.COUNTY_NAME, label: item.COUNTY_NAME };
+  });
 
+  console.log(filteredCountyOptions);
+  //select county
   const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
@@ -156,7 +166,7 @@ function Mapo(props) {
     console.log("------");
     if (selectedOption) {
       let disease_prevalence = selectedOption.value.concat("_prevalence");
-      setChosenDisease(disease_prevalence);
+      // setChosenDisease(disease_prevalence);
     }
   }, [selectedOption]);
 
@@ -164,12 +174,12 @@ function Mapo(props) {
     return (
       <div>
         <Select
-          options={options}
+          options={filteredCountyOptions}
           value={selectedOption}
-          placeholder={"Select a disease"}
+          placeholder={"Select a County"}
           clearable={false}
-          style={styles.select}
           // style={styles.select}
+
           onChange={setSelectedOption}
           //
         >
@@ -177,6 +187,53 @@ function Mapo(props) {
             <option key={choice}>{choice}</option>
           ))} */}
         </Select>
+      </div>
+    );
+  };
+
+  const CountyPercentageCircle = (data) => {
+    console.log(filteredCountyList);
+    let ChosenCounty = filteredCountyList.filter(function (item) {
+      if (selectedOption) {
+        return item.COUNTY_NAME === selectedOption.value;
+      }
+    });
+    // ChosenCounty = ChosenCounty[0];
+    let percent = "";
+    let ChosenCountyName = " ";
+    if (ChosenCounty.length != 0) {
+      ChosenCountyName = ChosenCounty[0]["COUNTY_NAME"];
+      Array.isArray(props.ChosenDisease)
+        ? (percent = ChosenCounty[0][props.ChosenDisease[0]])
+        : (percent = ChosenCounty[0][props.ChosenDisease]);
+    }
+
+    return (
+      <div>
+        <div>
+          <h2 style={{ textSize: "12px" }}></h2>
+        </div>
+        <CircularProgressbarWithChildren
+          styles={buildStyles({ textSize: "16px", pathColor: "#990000" })}
+          value={percent}
+          // text={`${percent}%`}
+        >
+          <div
+            style={{
+              fontSize: 20,
+              width: "70%",
+              marginTop: -5,
+              lineHeight: 1.5,
+              justifyContent: "center",
+            }}
+          >
+            <center>
+              {props.ChosenDisease} in {ChosenCountyName}
+              <br />
+              <strong style={{ fontsSize: 30 }}>{percent}%</strong>
+            </center>
+          </div>
+        </CircularProgressbarWithChildren>
       </div>
     );
   };
@@ -219,7 +276,7 @@ function Mapo(props) {
             </Grid.Column>
             {/* <svg class='legend'></svg> */}
 
-            <Grid.Column width={8}>
+            <Grid.Column width={10}>
               <h1>
                 Prevalence of {props.ChosenDisease} in {clickedState}
               </h1>
@@ -319,8 +376,9 @@ function Mapo(props) {
                 </ReactTooltip>
               </div>
             </Grid.Column>
-            <Grid.Column width={2}>
-              <div>stufffff</div>
+            <Grid.Column width={3}>
+              <CountyDropdown />
+              <CountyPercentageCircle data={props.csv} />
             </Grid.Column>
           </Grid.Row>
         </Grid>
