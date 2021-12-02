@@ -1,0 +1,18 @@
+{
+    "0": {
+        "STATE_NAME": "Wyoming",
+        "county_pop2018_18_and_older": 253768092,
+        "anycondition_prevalence": 46.8,
+        "anycondition_number": 104834413,
+        "Obesity_prevalence": 35.0,
+        "Obesity_number": 79370219,
+        "Heart disease_prevalence": 8.6,
+        "Heart disease_number": 17577099,
+        "COPD_prevalence": 9.1,
+        "COPD_number": 18298181,
+        "diabetes_prevalence": 13.1,
+        "diabetes_number": 29286550,
+        "CKD_prevalence": 3.4,
+        "CKD_number": 7744254
+    }
+}

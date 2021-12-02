@@ -5,7 +5,19 @@ import * as d3 from "d3";
 import Select from "react-select";
 import _ from "lodash";
 import { scaleQuantile } from "d3-scale";
+import {Table,Header} from 'semantic-ui-react'
 import ReactTooltip from "react-tooltip";
+import statedic from "./statedic.json";
+import nationdic from "./nation.json";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,ResponsiveContainer
+} from "recharts";
 // import sq from '@vx/scale/scaleQuantile';
 import "./maps.css";
 import {
@@ -17,7 +29,6 @@ import {
 import { Dropdown } from "semantic-ui-react";
 // import { LegendQuantile } from 'react-d3-legends';
 import {
-  Legend,
   LegendLinear,
   LegendQuantile,
   LegendOrdinal,
@@ -26,7 +37,34 @@ import {
   LegendItem,
   LegendLabel,
 } from "@vx/legend";
-
+function CBar(props){
+  const cur = props.data.filter(function(item){
+return item['STATE_NAME']==props.statename;
+  });
+  console.log(cur);
+  
+ console.log(typeof(props.disease));
+ return(
+<ResponsiveContainer width="100%" height={400}><BarChart
+ 
+  data={cur}
+  margin={{
+    top: 5,
+    right: 30,
+    left: 0,
+    bottom: 5
+  }}
+>
+  <CartesianGrid strokeDasharray="3 3" />
+  <XAxis dataKey="COUNTY_NAME" tick={false}/>
+  <YAxis />
+  <Tooltip />
+  <Legend />
+  {typeof(props.disease)==='object'?<Bar dataKey={props.disease[0]} fill="#396EB0"/>:<Bar dataKey={props.disease} fill="#396EB0"/>}
+  {/* <Bar dataKey={props.disease} fill="#8884d8" /> */}
+   {/* <Bar dataKey="uv" fill="#82ca9d" />  */}
+</BarChart></ResponsiveContainer>)
+}
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 function Mapo(props) {
   const [statesData, setStateData] = useState(props.data);
@@ -37,10 +75,14 @@ function Mapo(props) {
   const [colourScale, setColourScale] = useState();
   const pathRef = useRef();
   const [colorfunction, setColorfunction] = useState();
+  const[clickedfips,setClickedfips]=useState();
+  const[clicked,setClicked]=useState(false);
+
   const [statefips, setStatefips] = useState("_nation");
   const [statename, setStateName] = useState("the United States");
   const [clickedState, setStateClickedState] = useState("the United States");
   useEffect(() => {
+  console.log(statedic);
     setMaximum(
       d3.max(props.csv, function (d) {
         // console.log(d.Obesity_prevalence);
@@ -281,6 +323,8 @@ function Mapo(props) {
                                   (s) => s["STATE_FIPS"] + "" === fip
                                 );
                                 setStateClickedState(cur["STATE_NAME"]);
+                                setClickedfips(fip);
+                                setClicked(true);
                               }}
                               onMouseEnter={() => {
                                 const fip = geo.id.substring(0, 2);
@@ -296,6 +340,17 @@ function Mapo(props) {
                                 setStatefips("_nation");
                                 setStateName("the United States");
                               }}
+                              style={{
+                                default: {
+        outline: 'none'
+    },
+    hover: {
+        outline: 'none'
+    },
+    pressed: {
+        outline: 'none'
+    }
+  }}
                               fill={
                                 geo.id.substring(0, 2) === statefips
                                   ? "yellow"
@@ -318,16 +373,86 @@ function Mapo(props) {
                   <b>Click for data about the counties .</b>
                 </ReactTooltip>
               </div>
+             
             </Grid.Column>
-            <Grid.Column width={2}>
-              <div>stufffff</div>
+            <Grid.Column width={5}>
+            <Table celled fixed style={{ width: "100%" }}>
+                                  <Table.Header>
+
+                                    <tr textalign="center" colSpan="3" 
+                                    style={{ backgroundColor: '#94B3FD'}} 
+                                   >
+                                      <td colSpan='1' style={{ width: 135,fontSize: '14px', textAlign: "center", fontWeight: 700, color: "black"  }}>Total Number </td>
+                                      <td colSpan='1' style={{ width: 110, fontSize: '14px', textAlign: "center", fontWeight: 700, color: "black" }}> {clicked?clickedState:""}</td>
+                                      <td colSpan='1' style={{ width: 110, fontSize: '14px', textAlign: "center",  fontWeight: 700, color: "black" }}> U.S.</td>
+                                    </tr>
+                                  
+                                
+                                    <Table.Row textAlign='center'>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {"Obesity"} </Table.HeaderCell>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {clicked?statedic[clickedfips]['Obesity_number']:<div></div>} </Table.HeaderCell>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {nationdic[0]['Obesity_number']} </Table.HeaderCell>
+
+                                    </Table.Row>
+                                    <Table.Row textAlign='center'>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {"CKD"} </Table.HeaderCell>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {clicked?statedic[clickedfips]['CKD_number']:<div></div>}  </Table.HeaderCell>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {nationdic[0]['CKD_number']} </Table.HeaderCell>
+
+                                    </Table.Row>
+                                    <Table.Row textAlign='center'>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {"COPD"} </Table.HeaderCell>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {clicked?statedic[clickedfips]['COPD_number']:<div></div>}  </Table.HeaderCell>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {nationdic[0]['COPD_number']} </Table.HeaderCell>
+
+                                    </Table.Row>
+                                    <Table.Row textAlign='center'>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {"Heart Disease "} </Table.HeaderCell>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {clicked?statedic[clickedfips]['Heart disease_number']:<div></div>}  </Table.HeaderCell>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {nationdic[0]['Heart disease_number']} </Table.HeaderCell>
+
+                                    </Table.Row>
+                                    <Table.Row textAlign='center'>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {"Diabetes "} </Table.HeaderCell>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {clicked?statedic[clickedfips]['diabetes_number']:<div></div>}  </Table.HeaderCell>
+                                      <Table.HeaderCell style={{ fontSize: '14px', fontWeight: 700 }}> {nationdic[0]['diabetes_number']} </Table.HeaderCell>
+
+                                    </Table.Row>
+
+                                    {/* <Table.Row textAlign = 'center'>
+                                  <Table.HeaderCell style={{fontSize: '19px'}}> {"Moderna Vaccine"} </Table.HeaderCell>
+                                  <Table.HeaderCell style={{fontSize: '19px'}}> {numberWithCommas(vaccineData["_nation"]["Administered_Moderna"])} </Table.HeaderCell>
+                                  <Table.HeaderCell style={{fontSize: '19px'}}> {numberWithCommas(vaccineData[stateMapFips]["Administered_Moderna"])} </Table.HeaderCell>
+
+                                </Table.Row>
+                                <Table.Row textAlign = 'center'>
+                                  <Table.HeaderCell style={{fontSize: '19px'}}> {"Pfizer \n \n Vaccine"} </Table.HeaderCell>
+                                  <Table.HeaderCell style={{fontSize: '19px'}}> {numberWithCommas(vaccineData["_nation"]["Administered_Pfizer"])} </Table.HeaderCell>
+                                  <Table.HeaderCell style={{fontSize: '19px'}}> {numberWithCommas(vaccineData[stateMapFips]["Administered_Pfizer"])} </Table.HeaderCell>
+
+                                </Table.Row> */}
+                             
+
+                                  </Table.Header>
+                                </Table>
             </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+          <Grid.Column width={2}>
+          
+            </Grid.Column>
+            <Grid.Column width={12}>
+            <div>
+             {clicked?<CBar statename={clickedState} disease={props.ChosenDisease} fip={clickedfips} data={props.csv} />:<div></div>}
+              </div>
+          </Grid.Column>
+         
           </Grid.Row>
         </Grid>
       </div>
     );
   } else {
-    return <p>Hello World</p>;
+    return <p> Please enable Javascript</p>;
   }
 }
 export default Mapo;
