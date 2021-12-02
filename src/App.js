@@ -86,6 +86,35 @@ function App() {
     );
   };
 
+  const DropdownButtonCounty = () => {
+    return (
+      // <Dropdown
+      //   placeholder="Select Disease"
+      //   fluid
+      //   selection
+      //   options={diseaseList}
+      //   onChange={handleChoiceChange}
+      // />
+      <div>
+        <Select
+          options={options}
+          value={selectedOption}
+          placeholder={"Select a disease"}
+          clearable={false}
+          // style={styles.select}
+          onChange={setSelectedOption}
+          //
+        >
+          {console.log("---------------------")}
+          {console.log(selectedOption)}
+          {/* {diseaselist.map((choice) => (
+            <option key={choice}>{choice}</option>
+          ))} */}
+        </Select>
+      </div>
+    );
+  };
+
   const [statesData, setStateData] = useState([]);
   const [property, setProperty] = useState("pop_est");
   useEffect(() => {
@@ -101,15 +130,16 @@ function App() {
       <div>
         <Grid columns={2} divided>
           <Grid.Row>
-            <Grid.Column>
+            <Grid.Column width={10}>
               <div class="DropdownToggle">
-                <DropdownButton> </DropdownButton>
+                <DropdownButton />
               </div>
               {/* <USMap data={data} property={property} /> */}
               <Mapo data={datageo} csv={csv} ChosenDisease={ChosenDisease} />
-            
             </Grid.Column>
-            <Grid.Column></Grid.Column>
+            <Grid.Column style={{ marginTop: "4%" }} width={6}>
+              <DropdownButton />
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </div>

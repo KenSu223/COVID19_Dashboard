@@ -1,0 +1,33 @@
+li {
+  list-style-type: none;
+}
+
+ul {
+  padding-left: 0%;
+}
+
+.input-color {
+  position: relative;
+}
+.input-color input {
+  padding-left: 20px;
+}
+.input-color .color-box {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}
+
+.CountyName {
+  padding-left: 20%;
+}
+
+.CountyList {
+  /* margin-top: 40%; */
+  max-height: 80vh !important ;
+  overflow-y: scroll;
+}
