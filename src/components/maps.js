@@ -39,6 +39,7 @@ function Mapo(props) {
   const [colorfunction, setColorfunction] = useState();
   const [statefips, setStatefips] = useState("_nation");
   const [statename, setStateName] = useState("the United States");
+  const [clickedState,setStateClickedState]=useState("the United States");
   useEffect(() => {
     setMaximum(
       d3.max(props.csv, function (d) {
@@ -110,7 +111,7 @@ function Mapo(props) {
   const CountyList = ({ list }) => {
     return (
       <div>
-        <p>List of Counties in {statename}</p>
+        <p>List of Counties in {clickedState}</p>
         <ul>
           {list.map((item) => (
             <CountyListItem key={item.id} item={item} />
@@ -142,7 +143,7 @@ function Mapo(props) {
   };
 
   const filteredCountyList = props.csv.filter(function (item) {
-    return item.STATE_NAME === statename;
+    return item.STATE_NAME === clickedState;
   });
 
   const CustomizedLabellist_state = (props) => {
@@ -185,7 +186,7 @@ function Mapo(props) {
 
             <Grid.Column width={14}>
               <h1>
-                Prevalence of {props.ChosenDisease} in {statename}
+                Prevalence of {props.ChosenDisease} in {clickedState}
               </h1>
               <div>
                 <div
@@ -239,6 +240,14 @@ function Mapo(props) {
                             <Geography
                               key={geo.rsmKey}
                               geography={geo}
+                              onClick={()=>{
+                                const fip = geo.id.substring(0, 2);
+                                const cur = props.csv.find(
+                                  (s) => s["STATE_FIPS"] + "" === fip
+                                );
+                                setStateClickedState(cur["STATE_NAME"]);
+
+                              }}
                               onMouseEnter={() => {
                                 const fip = geo.id.substring(0, 2);
                                 const cur = props.csv.find(
