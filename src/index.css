@@ -29,9 +29,14 @@ text {
   background-color: #ffffff;
   background-color: #000000;
   display: flex;
+  position: fixed;
+  /* margin-top: 0%; */
   overflow-x: auto;
   margin-bottom: 3%;
-  height: 70px;
+  top: 0;
+  height: 80px;
+  z-index: 99999;
+  padding-top: 5px;
 }
 .nav__link {
   display: flex;
@@ -68,4 +73,8 @@ text {
   padding-top: 1%;
   background-color: #000000;
   color: #ffffff;
+}
+
+#root {
+  margin-top: 7%;
 }

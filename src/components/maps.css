@@ -31,3 +31,7 @@ ul {
   max-height: 80vh !important ;
   overflow-y: scroll;
 }
+
+li.county:hover {
+  background-color: #eeeeee;
+}
