@@ -1,20 +1,23 @@
 {
   "files": {
-    "main.css": "/kenry/static/css/main.ff3d74a6.chunk.css",
-    "main.js": "/kenry/static/js/main.968c4ef4.chunk.js",
-    "main.js.map": "/kenry/static/js/main.968c4ef4.chunk.js.map",
+    "main.css": "/kenry/static/css/main.946731d4.chunk.css",
+    "main.js": "/kenry/static/js/main.3711c2b2.chunk.js",
+    "main.js.map": "/kenry/static/js/main.3711c2b2.chunk.js.map",
     "runtime-main.js": "/kenry/static/js/runtime-main.714dd0f0.js",
     "runtime-main.js.map": "/kenry/static/js/runtime-main.714dd0f0.js.map",
-    "static/js/2.1703af1b.chunk.js": "/kenry/static/js/2.1703af1b.chunk.js",
-    "static/js/2.1703af1b.chunk.js.map": "/kenry/static/js/2.1703af1b.chunk.js.map",
+    "static/css/2.6c0f60ba.chunk.css": "/kenry/static/css/2.6c0f60ba.chunk.css",
+    "static/js/2.67005db1.chunk.js": "/kenry/static/js/2.67005db1.chunk.js",
+    "static/js/2.67005db1.chunk.js.map": "/kenry/static/js/2.67005db1.chunk.js.map",
     "index.html": "/kenry/index.html",
-    "static/css/main.ff3d74a6.chunk.css.map": "/kenry/static/css/main.ff3d74a6.chunk.css.map",
-    "static/js/2.1703af1b.chunk.js.LICENSE.txt": "/kenry/static/js/2.1703af1b.chunk.js.LICENSE.txt"
+    "static/css/2.6c0f60ba.chunk.css.map": "/kenry/static/css/2.6c0f60ba.chunk.css.map",
+    "static/css/main.946731d4.chunk.css.map": "/kenry/static/css/main.946731d4.chunk.css.map",
+    "static/js/2.67005db1.chunk.js.LICENSE.txt": "/kenry/static/js/2.67005db1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.714dd0f0.js",
-    "static/js/2.1703af1b.chunk.js",
-    "static/css/main.ff3d74a6.chunk.css",
-    "static/js/main.968c4ef4.chunk.js"
+    "static/css/2.6c0f60ba.chunk.css",
+    "static/js/2.67005db1.chunk.js",
+    "static/css/main.946731d4.chunk.css",
+    "static/js/main.3711c2b2.chunk.js"
   ]
 }
