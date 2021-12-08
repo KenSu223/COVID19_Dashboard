@@ -320,7 +320,7 @@ function Mapo(props) {
 
             <Grid.Column width={10}>
               <h1>
-                Prevalence of {props.ChosenDisease} in {clickedState}
+                {props.ChosenDisease} in {clickedState}
               </h1>
               <div>
                 <div

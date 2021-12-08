@@ -23,7 +23,7 @@ function App() {
   //   { key: "CKD", text: "CKD", value: "CKD" },
   // ];
 
-  const [ChosenDisease, setChosenDisease] = useState(["Obesity_prevalence"]);
+  const [ChosenDisease, setChosenDisease] = useState(["anycondition_prevalence"]);
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleChoiceChange = (e) => {
@@ -34,7 +34,8 @@ function App() {
   };
 
   const options = [
-    { value: "Obesity", label: "Obseity" },
+    { value: "anycondition", label: "Any Condition" },
+    { value: "Obesity", label: "Obesity" },
     { value: "Heart disease", label: "Heart Disease" },
     { value: "COPD", label: "COPD" },
     { value: "diabetes", label: "Diabetes" },
