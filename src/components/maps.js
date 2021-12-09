@@ -48,9 +48,7 @@ function CBar(props) {
   const cur = props.data.filter(function (item) {
     return item["STATE_NAME"] == props.statename;
   });
-  console.log(cur);
-
-  console.log(typeof props.disease);
+ 
   return (
     <ResponsiveContainer width="100%" height={400}>
       <BarChart
@@ -82,8 +80,6 @@ const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
 function Mapo(props) {
   const [statesData, setStateData] = useState(props.data);
   const [maximum, setMaximum] = useState(0);
-  // console.log(statesData);
-  console.log(props.csv);
   const svgRef = useRef();
   const [colourScale, setColourScale] = useState();
   const pathRef = useRef();
@@ -95,24 +91,16 @@ function Mapo(props) {
   const [statename, setStateName] = useState("the United States");
   const [clickedState, setStateClickedState] = useState("the United States");
   useEffect(() => {
-    console.log(statedic);
     setMaximum(
       d3.max(props.csv, function (d) {
-        // console.log(d.Obesity_prevalence);
-        //return(d.Obesity_prevalence)
-        // console.log(d[props.ChosenDisease]);
-        // console.log(props.ChosenDisease);
         return d[props.ChosenDisease];
       })
     );
-
-    console.log(maximum);
-
     let colorScale = scaleQuantile()
       .domain([
         0,
         d3.max(props.csv, function (d) {
-          // console.log(d.Obesity_prevalence);
+      
           return d[props.ChosenDisease];
         }),
       ])
@@ -126,41 +114,16 @@ function Mapo(props) {
         "#d7301f",
         "#990000",
       ]);
-    //       var legendSvg = svg.append('g')
     setColorfunction(colorScale);
-    //          .attr('class', 'legend')
-    //         .attr("transform","translate("+ (width - 40) + ",20)")
-
-    // // Define the legend as you did
-    // var legend = legendColor()
-    //                  .useClass(true)
-    //                  .shape('rect')
-    //                  .orient('vertical')
-    //                  .title('Temperature Variance')
-    //                  .scale(colorScale);
-
-    // // And then call legend on the legendSvg not on svg itself
-    //  legendSvg.call(legend);
-
+ 
     const svg = select(svgRef.current);
-    console.log(colorScale(34.4));
     let scales = {};
     _.each(props.csv, (d) => {
       scales[d["COUNTY_NAME"]] = colorScale(d[props.ChosenDisease]);
     });
-    // console.log(scales);
+
     setColourScale(scales);
-    console.log(scales);
-    // console.log(colourScale);
-    //  svg.selectAll('path').data(props.csv).enter().attr("fill",function(d){
-    //    console.log(d.Obesity_prevalence);
-    //    var f=colorScale(d.Obesity_prevalence);
-    //    if(f<=25.5){
-    //     return "rgb(" + 255 + ",0,0)";
-    //    }
-    //    else{
-    //    return "rgb(" + f + "," + f + "," + f + ")"};
-    //  })
+
   }, [props.ChosenDisease]);
 
   const CountyList = ({ list }) => {
@@ -213,17 +176,14 @@ function Mapo(props) {
     return { value: item.COUNTY_NAME, label: item.COUNTY_NAME };
   });
 
-  console.log(filteredCountyOptions);
   //select county
   const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
-    console.log("disease changed!!!");
-    console.log(selectedOption);
-    console.log("------");
+
     if (selectedOption) {
       let disease_prevalence = selectedOption.value.concat("_prevalence");
-      // setChosenDisease(disease_prevalence);
+    
     }
   }, [selectedOption]);
 
@@ -235,21 +195,19 @@ function Mapo(props) {
           value={selectedOption}
           placeholder={"Select a County"}
           clearable={false}
-          // style={styles.select}
+   
 
           onChange={setSelectedOption}
           //
         >
-          {/* {diseaselist.map((choice) => (
-            <option key={choice}>{choice}</option>
-          ))} */}
+        
         </Select>
       </div>
     );
   };
 
   const CountyPercentageCircle = (data) => {
-    console.log(filteredCountyList);
+
     let ChosenCounty = filteredCountyList.filter(function (item) {
       if (selectedOption) {
         return item.COUNTY_NAME === selectedOption.value;
@@ -295,17 +253,11 @@ function Mapo(props) {
     );
   };
 
-  const CustomizedLabellist_state = (props) => {
-    const { value } = props;
-    console.log(props);
-    return <g>asdf</g>;
-  };
   const legendGlyphSize = 15;
   let colorScale = scaleQuantile()
     .domain([
       0,
       d3.max(props.csv, function (d) {
-        // console.log(d.Obesity_prevalence);
         return d[props.ChosenDisease].toFixed(0);
       }),
     ])
@@ -320,7 +272,7 @@ function Mapo(props) {
       "#990000",
     ]);
   if (colourScale) {
-    console.log(colourScale);
+ 
     return (
       <div>
         <Grid columns={3} divided>
@@ -383,7 +335,7 @@ function Mapo(props) {
                       {({ geographies }) =>
                         geographies.map((geo) => {
                           {
-                            /* const cur = props.csv.find(s => s['COUNTY_NAME'] === geo.properties.name); */
+                           
                           }
                           return (
                             <Geography
@@ -404,8 +356,7 @@ function Mapo(props) {
                                   (s) => s["STATE_FIPS"] + "" === fip
                                 );
                                 setStatefips(fip);
-                                console.log(fip);
-                                console.log(cur);
+                            
                                 setStateName(cur["STATE_NAME"]);
                               }}
                               onMouseLeave={() => {
@@ -619,18 +570,6 @@ function Mapo(props) {
                     </Table.HeaderCell>
                   </Table.Row>
 
-                  {/* <Table.Row textAlign = 'center'>
-                                  <Table.HeaderCell style={{fontSize: '19px'}}> {"Moderna Vaccine"} </Table.HeaderCell>
-                                  <Table.HeaderCell style={{fontSize: '19px'}}> {numberWithCommas(vaccineData["_nation"]["Administered_Moderna"])} </Table.HeaderCell>
-                                  <Table.HeaderCell style={{fontSize: '19px'}}> {numberWithCommas(vaccineData[stateMapFips]["Administered_Moderna"])} </Table.HeaderCell>
-
-                                </Table.Row>
-                                <Table.Row textAlign = 'center'>
-                                  <Table.HeaderCell style={{fontSize: '19px'}}> {"Pfizer \n \n Vaccine"} </Table.HeaderCell>
-                                  <Table.HeaderCell style={{fontSize: '19px'}}> {numberWithCommas(vaccineData["_nation"]["Administered_Pfizer"])} </Table.HeaderCell>
-                                  <Table.HeaderCell style={{fontSize: '19px'}}> {numberWithCommas(vaccineData[stateMapFips]["Administered_Pfizer"])} </Table.HeaderCell>
-
-                                </Table.Row> */}
                 </Table.Header>
               </Table>
             </Grid.Column>
