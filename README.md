@@ -43,11 +43,6 @@ npm start
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
 
-## Contributers
-* Kevin Wu
-* Ken Su
-* Henry Chen
-
 ## Authors:
 ### Tongli(Ken) Su - Emory University 2022
 ### Kaiwen(Kevin) Wu - Emory University 2023
